@@ -4,11 +4,16 @@
 # are commented out.
 #############################################################
 
+# clone functions git
+if(!file.exists("cyanus_functions")){
+  system("git clone git@github.com:biomedbigdata/cyanus_functions.git")
+}
+
 library(CATALYST)
 RNGversion("3.5.3")
 
 library(readxl)
-url <- "http://imlspenticton.uzh.ch/robinson_lab/cytofWorkflow"
+url <- "https://zenodo.org/records/10039274/files"
 md <- "PBMC8_metadata.xlsx"
 download.file(file.path(url, md), destfile = md, mode = "wb")
 md <- read_excel(md)
@@ -53,7 +58,7 @@ sce <- prepData(fs, panel, md, features = panel$fcs_colname)
 
 ######## CUSTOM VERSION FOR APP ############
 #should be the same 
-source("functions/cluster_functions.R")
+source("cyanus_functions/functions/cluster_functions.R")
 set.seed(1234)
 sce <- clusterSCE(sce, features = "type",
                xdim = 10, ydim = 10, maxK = 20, seed = 1234)

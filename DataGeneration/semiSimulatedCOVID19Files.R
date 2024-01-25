@@ -1,5 +1,11 @@
-source("functions/prep_functions.R")
-source("functions/cluster_functions.R")
+# clone functions git
+if(!file.exists("cyanus_functions")){
+  system("git clone git@github.com:biomedbigdata/cyanus_functions.git")
+}
+library(readxl)
+
+source("cyanus_functions/functions/prep_functions.R")
+source("cyanus_functions/functions/cluster_functions.R")
 
 
 spikeInMarkers <- function(pathToSCE = "DataGeneration/covid/sce_untransformed.rds",
@@ -176,11 +182,13 @@ panel <-
   read_excel(
     "DataGeneration/covid/panel_umap.xlsx"
   )
+head(panel)
 md <- 
   read_excel(
     "DataGeneration/covid/meta_11vs8_batch.xlsx"
   )
-#download the data from FlowRepository
+head(md)
+#download the data from FlowRepository (ID: FR-FCM-Z4AE) and put them in DataGeneration/covid/covid_platelets
 exp <-
   list.files(
     "DataGeneration/covid/covid_platelets",
